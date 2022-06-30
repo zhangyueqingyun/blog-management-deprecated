@@ -8,31 +8,37 @@ export default defineConfig({
   request: {},
   layout: {
     title: 'Z-Blog Management',
+    locale: false
   },
   routes: [
     {
       path: '/',
       redirect: '/blog',
+      access: 'admin'
     },
     {
       name: '博客',
       path: '/blog',
       component: './Blog',
+      access: 'admin',
     },
     {
       name: '类别',
       path: '/category',
       component: './Category',
+      access: 'admin'
     },
     {
       name: '标签',
       path: '/sign',
       component: './Sign',
+      access: 'admin'
     },
     {
       name: '简介',
       path: '/profile',
       component: './Profile',
+      access: 'admin'
     },
     // {
     //   name: '权限演示',
