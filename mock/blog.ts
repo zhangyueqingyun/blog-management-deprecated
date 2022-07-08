@@ -13,6 +13,12 @@ export default {
         }],
         message: ''
       });
+    },
+    'POST /api/blog/add': (req: any, res: any) => {
+      res.json({
+        code: 20000,
+        message: 'success'
+      });
     }
   };
   

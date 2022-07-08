@@ -18,7 +18,7 @@ export const columns: ProColumns<any>[] = [
       dataIndex: 'ossPath',
     },
     {
-      title: '日期',
+      title: '上传日期',
       dataIndex: 'datetime',
     },
     {
