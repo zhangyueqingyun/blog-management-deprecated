@@ -1,25 +1,29 @@
+import {useState} from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
   ProFormSelect,
-  ProFormUploadButton,
   ProForm
 } from '@ant-design/pro-components';
 import AliyunOssUpload from '@/components/AliyunOssUpload'
-
 import { Button, message } from 'antd';
 import { addBlog } from '@/services/blog'
 import { useOptions } from '../hooks'
+import type { UploadFile } from 'antd/es/upload/interface';
 
 export default () => {
   const { categoryValueEnum, signValueEnum } = useOptions()
-
+  const [ ossPath, setOssPath ] = useState('')
   const onFinish = async function(blog: any) {
-    await addBlog({...blog, datetime: Date.now()})
+    await addBlog({...blog,signIds: blog.signIds.join(','), ossPath, datetime: Date.now()})
     message.success('新建成功')
     return true
+  }
+
+  const onUploadChange = function (file: UploadFile) {
+    setOssPath(file?.name)
   }
 
   return (
@@ -55,7 +59,9 @@ export default () => {
          name="ossPath"
          label="博客正文"
       >
-        <AliyunOssUpload />
+        <AliyunOssUpload 
+          onChange={onUploadChange}
+        />
       </ProForm.Item>
       <ProFormSelect
         mode="multiple"
