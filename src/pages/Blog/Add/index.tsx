@@ -4,8 +4,11 @@ import {
   ProFormText,
   ProFormTextArea,
   ProFormSelect,
-  ProFormUploadButton
+  ProFormUploadButton,
+  ProForm
 } from '@ant-design/pro-components';
+import AliyunOssUpload from '@/components/AliyunOssUpload'
+
 import { Button, message } from 'antd';
 import { addBlog } from '@/services/blog'
 import { useOptions } from '../hooks'
@@ -47,18 +50,13 @@ export default () => {
         label="类别"
         valueEnum={categoryValueEnum}  
       />
-      <ProFormUploadButton
-        name="ossPath"
-        label="博客正文"
-        max={1}
-        fieldProps={{
-          name: 'file',
-          customRequest(){
-            return true
-          }
-        }}
-        accept=".md"
-      />
+
+      <ProForm.Item
+         name="ossPath"
+         label="博客正文"
+      >
+        <AliyunOssUpload />
+      </ProForm.Item>
       <ProFormSelect
         mode="multiple"
         name="signIds" 
