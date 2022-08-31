@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import { PageContainer } from '@ant-design/pro-components';
 import { Tree } from 'antd';
-import { FolderFilled, FileOutlined } from '@ant-design/icons';
+import { FolderFilled, FileOutlined, FolderOpenFilled } from '@ant-design/icons';
 
 import { getCategories } from '@/services/category';
 
 function CategoryPage () {
   const [treeData, setTreeData] = useState();
 
-  const fetchTreeData = async (node) => {
+  async function fetchTreeData (node) {
     if(node?.children) return;
 
     const treeData = await getTreeData(node?.id ?? -1);
@@ -17,6 +17,10 @@ function CategoryPage () {
       updateTreeData(prevTreeData, node.key, treeData) :
       treeData
     ));
+  }
+
+  function onExpand (keys, {expanded}) {
+    setTreeData(prevTreeData => expandNode(prevTreeData, keys, expanded))
   }
 
   useEffect(function () {
@@ -28,14 +32,29 @@ function CategoryPage () {
       showIcon
       treeData={treeData} 
       loadData={fetchTreeData} 
+      onExpand={onExpand}
+      selectable={false}
     />
   </PageContainer>);
 }
 
+const expandNode = (list, keys, expanded) =>  list.map(node => {
+  if(keys.find(key => key === node.key)) {
+    node.icon = <FolderOpenFilled />;
+  } else if (node.type !== 'blog') {
+    node.icon = <FolderFilled />;
+  }
+
+  if(node.children) 
+    node.children = expandNode(node.children, keys, expanded);
+
+  return node;
+})
+
 const updateTreeData = (list, key, children) =>  list.map(node => {
     if(node.key === key) {
       node.children = children;
-      node.isLeaf = !children?.length;
+      // node.isLeaf = !children?.length;
     } 
       
     if(node.children) 
@@ -51,7 +70,7 @@ async function getTreeData(parentId) {
       title: category.name,
       key:`${category.type}-${category.id}`,
       isLeaf: category.type === 'blog',
-      icon: category.type === 'blog' ? <FileOutlined /> : <FolderFilled />
+      icon: category.type === 'blog' ? <FileOutlined /> : <FolderFilled />,
   }))
 }
 
