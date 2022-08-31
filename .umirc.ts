@@ -17,12 +17,6 @@ export default defineConfig({
       access: 'admin'
     },
     {
-      name: '博客',
-      path: '/blog',
-      component: './Blog',
-      access: 'admin',
-    },
-    {
       name: '类别',
       path: '/category',
       component: './Category',
