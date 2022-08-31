@@ -30,9 +30,11 @@ export default () => {
       }
       initialValues={{title: category?.name, description: category?.description}}
       autoFocusFirstInput
-      modalProps={
-        {width: 500}
-      }
+      modalProps={{
+        width: 500,
+        keyboard: false,
+        maskClosable: false
+      }}
       onFinish={onFinish}
     >
       <ProFormText 

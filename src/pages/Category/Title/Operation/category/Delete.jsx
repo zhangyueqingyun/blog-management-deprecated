@@ -25,9 +25,11 @@ export default () => {
         <DeleteOutlined className="delete" />
       }
       autoFocusFirstInput
-      modalProps={
-        {width: 500}
-      }
+      modalProps={{
+        width: 500,
+        keyboard: false,
+        maskClosable: false
+      }}
       onFinish={onFinish}
     >
      确定删除该分类“{category.name}”及其下所有子项目吗？

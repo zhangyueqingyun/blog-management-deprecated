@@ -31,7 +31,11 @@ export default () => {
       }}
       onFinish={onFinish}
       autoFocusFirstInput
-      modalProps={{width: 500}}
+      modalProps={{
+        width: 500,
+        keyboard: false,
+        maskClosable: false
+      }}
     >
      <ProFormText 
         name="name" 

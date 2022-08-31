@@ -43,12 +43,12 @@ export default () => {
       title="新增"
       trigger={
         <PlusCircleOutlined className="add" />
-        
       }
-      autoFocusFirstInput
-      modalProps={
-        {width: 500}
-      }
+      modalProps={{
+          width: 500,
+          keyboard: false,
+          maskClosable: false
+      }}
       onFinish={onFinish}
     >
        <ProFormRadio.Group

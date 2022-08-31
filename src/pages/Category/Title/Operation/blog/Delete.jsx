@@ -25,9 +25,11 @@ export default () => {
         <DeleteOutlined className="delete" />
       }
       autoFocusFirstInput
-      modalProps={
-        {width: 500}
-      }
+      modalProps={{
+        width: 500,
+        keyboard: false,
+        maskClosable: false
+      }}
       onFinish={onFinish}
     >
      确定删除博客“{category.name}”吗？
