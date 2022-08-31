@@ -1,24 +1,25 @@
-import {useState} from 'react'
+import { useContext } from 'react'
 import { EditOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
-  ProFormTextArea,
-  ProForm
+  ProFormTextArea
 } from '@ant-design/pro-components';
-import AliyunOssUpload from '@/components/AliyunOssUpload'
-import { Button, message } from 'antd';
+import { message } from 'antd';
+
+import { CategoryContext, TitleContext } from '@/pages/Category/context';
+
+import { editBlog } from '@/services/category';
 
 export default () => {
-  const [ ossPath, setOssPath ] = useState('')
-  const onFinish = async function(blog) {
-    // await addBlog({...blog,signIds: blog.signIds.join(','), ossPath, datetime: Date.now()})
-    message.success('新建成功')
-    return true
-  }
+  const {category, parentNode} = useContext(TitleContext);
+  const {refresh} = useContext(CategoryContext);
 
-  const onUploadChange = function (file) {
-    setOssPath(file?.name)
+  const onFinish = async function(blog) {
+    await editBlog({...blog, id: category.id})
+    message.success('新建成功')
+    refresh(parentNode);
+    return true
   }
 
   return (
@@ -27,6 +28,7 @@ export default () => {
       trigger={
         <EditOutlined className="edit" />
       }
+      initialValues={{title: category?.name, description: category?.description}}
       autoFocusFirstInput
       modalProps={
         {width: 500}
@@ -41,14 +43,6 @@ export default () => {
         name="description" 
         label="描述" 
       />
-      <ProForm.Item
-         name="ossPath"
-         label="博客正文"
-      >
-        <AliyunOssUpload 
-          onChange={onUploadChange}
-        />
-      </ProForm.Item>
     </ModalForm>
   );
 };

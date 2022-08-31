@@ -1,9 +1,11 @@
 import AddOp from './Add';
-import DeleteOp from './Delete';
-import EditBlogOp from './EditBlog';
-import EditCategoryOp from './EditCategory';
+import DeleteBlogOp from './blog/Delete';
+import EditBlogOp from './blog/Edit';
+import EditCategoryOp from './category/Edit';
+import DeleteCategoryOp from './category/Delete';
 
 export const Add = AddOp;
-export const Delete = DeleteOp;
+export const DeleteBlog = DeleteBlogOp;
+export const DeleteCategory = DeleteCategoryOp;
 export const EditBlog = EditBlogOp;
 export const EditCategory = EditCategoryOp;

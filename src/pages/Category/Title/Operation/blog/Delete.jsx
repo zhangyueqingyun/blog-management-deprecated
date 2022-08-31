@@ -1,27 +1,21 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { DeleteOutlined } from '@ant-design/icons';
 import { ModalForm } from '@ant-design/pro-components';
 import { message } from 'antd';
 
-import { deleteCategory } from '@/services/category';
+import { deleteBlog } from '@/services/category';
 
-import { CategoryContext, TitleContext } from '../../context';
+import { CategoryContext, TitleContext } from '@/pages/Category/context';
 
 export default () => {
-  const [ ossPath, setOssPath ] = useState('');
-
   const {category, parentNode} = useContext(TitleContext);
   const {refresh} = useContext(CategoryContext);
     
   const onFinish = async function() {
-    await deleteCategory(category.id);
+    await deleteBlog(category.id);
     message.success('删除成功');
     refresh(parentNode);
     return true
-  }
-
-  const onUploadChange = function (file) {
-    setOssPath(file?.name)
   }
 
   return (
@@ -36,7 +30,7 @@ export default () => {
       }
       onFinish={onFinish}
     >
-     确定删除该分类及其下所有子项目吗？
+     确定删除博客“{category.name}”吗？
     </ModalForm>
   );
 };

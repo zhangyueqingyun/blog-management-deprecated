@@ -10,9 +10,9 @@ import { message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 
 import AliyunOssUpload from '@/components/AliyunOssUpload'
-import { CategoryContext, TitleContext } from '../../context';
+import { CategoryContext, TitleContext } from '@/pages/Category/context';
 
-import { addCategory } from '@/services/category';
+import { addCategory, addBlog } from '@/services/category';
 
 const CATEGORY = 0;
 const BLOG = 1;
@@ -20,11 +20,15 @@ const BLOG = 1;
 export default () => {
   const [ ossPath, setOssPath ] = useState(CATEGORY);
   const [ type , setType ] = useState(0);
-  const {category} = useContext(TitleContext);
-  const {refresh} = useContext(CategoryContext);
+  const { category } = useContext(TitleContext);
+  const { refresh } = useContext(CategoryContext);
     
   const onFinish = async function(data) {
-    await addCategory({...data, parentId: category?.id || -1});
+    if(type === CATEGORY) {
+      await addCategory({...data, parentId: category?.id || -1});
+    } else if (type === BLOG) {
+      await addBlog({...data, ossPath, categoryId: category?.id || -1});
+    }
     message.success('新增成功');
     refresh({key: 'all', id: -1, ...category});
     return true

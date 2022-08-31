@@ -3,7 +3,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { message } from 'antd';
 
-import { CategoryContext, TitleContext } from '../../context';
+import { CategoryContext, TitleContext } from '@/pages/Category/context';
 
 import { editCategory } from '@/services/category';
 
