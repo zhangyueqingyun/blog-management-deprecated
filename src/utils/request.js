@@ -14,6 +14,15 @@ export async function add(path, json) {
     return data
 }
 
+export async function del(path) {
+  const {data} = await request<any>(`${BASE_URL}/${path}`, {
+    method: 'POST',
+  });
+
+  return data
+}
+
+
 export async function get(path) {
   const {data} = await request(`${BASE_URL}/${path}`)
   return data

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { PlusOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
@@ -23,12 +23,9 @@ export default () => {
 
   return (
     <ModalForm
-      title="新建博客"
+      title="编辑博客"
       trigger={
-        <Button type="primary">
-          <PlusOutlined />
-          新建博客
-        </Button>
+        <EditOutlined className="edit" />
       }
       autoFocusFirstInput
       modalProps={
