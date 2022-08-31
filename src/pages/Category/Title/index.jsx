@@ -6,15 +6,15 @@ import {TitleContext} from '../context';
 
 import './index.less';
 
-export default  function Title() {
+export default  function Title({title}) {
     const {isOver, enter, leave} = useMouseOver();
     const {category: {name, type}} = useContext(TitleContext);
 
     return (<span onMouseEnter={enter} onMouseLeave={leave}>
-        <span className="title">{name}</span> 
-        {isOver && type === 'category' && <Add />}
+        <span className="title">{name || title}</span> 
+        {isOver && type !== 'blog' && <Add />}
         {isOver && type === 'category' && <EditCategory />}
         {isOver && type === 'blog' && <EditBlog />}
-        {isOver && <Delete />}
+        {isOver && type && <Delete />}
     </span>)
 }

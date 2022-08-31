@@ -24,16 +24,14 @@ export default () => {
   const {refresh} = useContext(CategoryContext);
     
   const onFinish = async function(data) {
-    console.log('data', data)
-    await addCategory({...data, parentId: category.id})
-    // await addBlog({...blog, ossPath, datetime: Date.now()})
-    message.success('新建成功');
-    refresh(category);
+    await addCategory({...data, parentId: category?.id || -1});
+    message.success('新增成功');
+    refresh({key: 'all', id: -1, ...category});
     return true
   }
 
   const onUploadChange = function (file) {
-    setOssPath(file?.name)
+    setOssPath(file?.name);
   }
 
   return (

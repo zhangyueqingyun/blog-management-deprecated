@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { PageContainer } from '@ant-design/pro-components';
 import { Tree } from 'antd';
-import { FolderFilled, FileOutlined, FolderOpenFilled, PlusCircleOutlined } from '@ant-design/icons';
+import { FolderFilled, FileOutlined, FolderOpenFilled } from '@ant-design/icons';
 
 import { getCategories } from '@/services/category';
+import { CategoryContext, TitleContext} from './context';
 import Title from './Title';
-import {CategoryContext, TitleContext} from './context';
 
 function CategoryPage () {
   const [treeData, setTreeData] = useState();
@@ -19,10 +19,10 @@ function CategoryPage () {
     if(node?.children && !isRefresh) return;
 
     const treeData = await getTreeData(node);
-    
+
     setTreeData(prevTreeData => (node ? 
       updateTreeData(prevTreeData, node.key, treeData) :
-      treeData
+      [{id: -1, key: "all", title: <Title title='全部' />,  children: treeData}]
     ));
   }
 
@@ -32,25 +32,26 @@ function CategoryPage () {
 
   useEffect(function () {
     fetchTreeData();
-  }, [])
+  }, []);
 
   return (<PageContainer ghost title="类别">
     <CategoryContext.Provider value={{refresh}}>
-      <Tree 
+      {treeData && <Tree 
         showIcon
         treeData={treeData} 
         loadData={fetchTreeData} 
         onExpand={onExpand}
         selectable={false}
-      />
+        defaultExpandedKeys={['all']}
+      />}
     </CategoryContext.Provider>
   </PageContainer>);
 }
 
 const expandNode = (list, keys, expanded) =>  list.map(node => {
-  if(keys.find(key => key === node.key)) {
+  if(keys.find(key => key === node.key) && node.id !== -1) {
     node.icon = <FolderOpenFilled />;
-  } else if (node.type !== 'blog') {
+  } else if (node.type !== 'blog' && node.id !== -1) {
     node.icon = <FolderFilled />;
   }
 
@@ -63,7 +64,6 @@ const expandNode = (list, keys, expanded) =>  list.map(node => {
 const updateTreeData = (list, key, children) =>  list.map(node => {
     if(node.key === key) {
       node.children = children;
-      // node.isLeaf = !children?.length;
     } 
       
     if(node.children) 
