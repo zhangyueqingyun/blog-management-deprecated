@@ -4,7 +4,8 @@
     "dev": "max dev",
     "build": "max build",
     "postinstall": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "dep": "node ./scripts/deploy"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
