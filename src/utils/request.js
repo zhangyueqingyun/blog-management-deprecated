@@ -1,6 +1,6 @@
 import { request } from '@umijs/max';
 
-const BASE_URL = 'http://localhost:9000/api';
+const BASE_URL = 'https://121.40.90.158/api';
 
 export const add = post;
 

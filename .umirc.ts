@@ -1,6 +1,8 @@
 import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
+  base: 'management',
+  publicPath: '/management/',
   antd: {},
   access: {},
   model: {},
@@ -13,7 +15,7 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/blog',
+      redirect: '/category',
       access: 'admin'
     },
     {
@@ -22,18 +24,18 @@ export default defineConfig({
       component: './Category',
       access: 'admin'
     },
-    {
-      name: '标签',
-      path: '/sign',
-      component: './Sign',
-      access: 'admin'
-    },
-    {
-      name: '简介',
-      path: '/profile',
-      component: './Profile',
-      access: 'admin'
-    },
+    // {
+    //   name: '标签',
+    //   path: '/sign',
+    //   component: './Sign',
+    //   access: 'admin'
+    // },
+    // {
+    //   name: '简介',
+    //   path: '/profile',
+    //   component: './Profile',
+    //   access: 'admin'
+    // },
     // {
     //   name: '权限演示',
     //   path: '/access',
