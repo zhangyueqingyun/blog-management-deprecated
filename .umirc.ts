@@ -6,17 +6,28 @@ export default defineConfig({
   antd: {},
   access: {},
   model: {},
-  initialState: {},
+  initialState: {
+  },
   request: {},
   layout: {
     title: 'Z-Blog Management',
-    locale: false
+    locale: false,
   },
-  routes: [
-    {
-      path: '/',
-      redirect: '/category',
-      access: 'admin'
+  routes: [{
+      path: '/user',
+      layout: false,
+      routes: [
+        {
+          path: '/user/login',
+          layout: false,
+          name: 'login',
+          component: './Login',
+        },
+        {
+          path: '/user',
+          redirect: '/user/login',
+        },
+      ],
     },
     {
       name: '类别',
@@ -24,28 +35,10 @@ export default defineConfig({
       component: './Category',
       access: 'admin'
     },
-    // {
-    //   name: '标签',
-    //   path: '/sign',
-    //   component: './Sign',
-    //   access: 'admin'
-    // },
-    // {
-    //   name: '简介',
-    //   path: '/profile',
-    //   component: './Profile',
-    //   access: 'admin'
-    // },
-    // {
-    //   name: '权限演示',
-    //   path: '/access',
-    //   component: './Access',
-    // },
-    // {
-    //     name: ' CRUD 示例',
-    //     path: '/table',
-    //     component: './Table',
-    // },
+    {
+      path: '/',
+      redirect: '/management/category',
+    }
   ],
   npmClient: 'pnpm',
 });
