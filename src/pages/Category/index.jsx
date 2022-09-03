@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import { PageContainer } from '@ant-design/pro-components';
-import { Tree } from 'antd';
+import { Tree, Spin } from 'antd';
 import { FolderFilled, FileOutlined, FolderOpenFilled } from '@ant-design/icons';
 
 import { getCategories } from '@/services/category';
 import { CategoryContext, TitleContext} from './context';
 import Title from './Title';
+import './index.less'
 
 function CategoryPage () {
   const [treeData, setTreeData] = useState();
@@ -35,16 +36,21 @@ function CategoryPage () {
   }, []);
 
   return (<PageContainer ghost title="类别">
-    <CategoryContext.Provider value={{refresh}}>
-      {treeData && <Tree 
-        showIcon
-        treeData={treeData} 
-        loadData={fetchTreeData} 
-        onExpand={onExpand}
-        selectable={false}
-        defaultExpandedKeys={['all']}
-      />}
-    </CategoryContext.Provider>
+    <Spin spinning={!treeData} tip="加载中">
+      <div style={{height: '70vh'}}>
+
+        <CategoryContext.Provider value={{refresh}}>
+          {treeData && <Tree 
+            showIcon
+            treeData={treeData} 
+            loadData={fetchTreeData} 
+            onExpand={onExpand}
+            selectable={false}
+            defaultExpandedKeys={['all']}
+          />}
+        </CategoryContext.Provider>
+      </div>
+    </Spin>
   </PageContainer>);
 }
 
