@@ -23,38 +23,36 @@ const Login = () => {
           }}
         >
           <div className={styles.title}>
-            ZBlog 管理系统 @v@ ~
+            ZBlog 管理系统
           </div>
-            <>
-              <ProFormText
-                name="username"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon} />,
-                }}
-                placeholder={'用户名'}
-                rules={[
-                  {
-                    required: true,
-                    message: "用户名不能为空",
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                name="password"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
-                }}
-                placeholder={'密码'}
-                rules={[
-                  {
-                    required: true,
-                    message:"密码不能为空"
-                  },
-                ]}
-              />
-            </>
+            <ProFormText
+              name="username"
+              fieldProps={{
+                size: 'large',
+                prefix: <UserOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder={'用户名'}
+              rules={[
+                {
+                  required: true,
+                  message: "用户名不能为空",
+                },
+              ]}
+            />
+            <ProFormText.Password
+              name="password"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder={'密码'}
+              rules={[
+                {
+                  required: true,
+                  message:"密码不能为空"
+                },
+              ]}
+            />
         </LoginForm>
       </div>
     </div>
