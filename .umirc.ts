@@ -30,8 +30,9 @@ export default defineConfig({
       ],
     },
     {
-      name: '类别',
+      name: '博客管理',
       path: '/category',
+      icon: 'ReadOutlined',
       component: './Category',
       access: 'admin'
     },
