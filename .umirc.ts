@@ -1,55 +1,45 @@
 import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
+  base: 'management',
+  publicPath: '/management/',
   antd: {},
   access: {},
   model: {},
-  initialState: {},
+  initialState: {
+  },
   request: {},
   layout: {
     title: 'Z-Blog Management',
-    locale: false
+    locale: false,
   },
-  routes: [
-    {
-      path: '/',
-      redirect: '/blog',
-      access: 'admin'
+  routes: [{
+      path: '/user',
+      layout: false,
+      routes: [
+        {
+          path: '/user/login',
+          layout: false,
+          name: 'login',
+          component: './Login',
+        },
+        {
+          path: '/user',
+          redirect: '/user/login',
+        },
+      ],
     },
     {
-      name: '博客',
-      path: '/blog',
-      component: './Blog',
-      access: 'admin',
-    },
-    {
-      name: '类别',
+      name: '博客管理',
       path: '/category',
+      icon: 'ReadOutlined',
       component: './Category',
       access: 'admin'
     },
     {
-      name: '标签',
-      path: '/sign',
-      component: './Sign',
-      access: 'admin'
-    },
-    {
-      name: '简介',
-      path: '/profile',
-      component: './Profile',
-      access: 'admin'
-    },
-    // {
-    //   name: '权限演示',
-    //   path: '/access',
-    //   component: './Access',
-    // },
-    // {
-    //     name: ' CRUD 示例',
-    //     path: '/table',
-    //     component: './Table',
-    // },
+      path: '/',
+      redirect: '/management/category',
+    }
   ],
   npmClient: 'pnpm',
 });
