@@ -13,6 +13,7 @@ import AliyunOssUpload from '@/components/AliyunOssUpload'
 import { CategoryContext, TitleContext } from '@/pages/Category/context';
 
 import { addCategory, addBlog } from '@/services/category';
+import { getNowDatetime } from '@/utils/datetime'
 
 const CATEGORY = 0;
 const BLOG = 1;
@@ -27,7 +28,7 @@ export default () => {
     if(type === CATEGORY) {
       await addCategory({...data, parentId: category?.id || -1});
     } else if (type === BLOG) {
-      await addBlog({...data, ossPath, categoryId: category?.id || -1});
+      await addBlog({...data, ossPath, datetime: getNowDatetime(), categoryId: category?.id || -1});
     }
     message.success('新增成功');
     refresh({key: 'all', id: -1, ...category});
