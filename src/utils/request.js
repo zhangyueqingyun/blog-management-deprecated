@@ -15,7 +15,7 @@ const req = async function(url, options) {
   }
 }
 
-const BASE_URL = 'https://121.40.90.158/api';
+const BASE_URL = 'https://zhangyueqingyun.tech/api';
 
 export const add = post;
 
